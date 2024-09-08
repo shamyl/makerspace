@@ -11,7 +11,6 @@ public class LabReqBean {
     private Long id;
     private String name;
     private String timePeriod;
-    private String createdDate;
     private String startDateTime;
     private String endDateTime;
     private Boolean isActive = true;

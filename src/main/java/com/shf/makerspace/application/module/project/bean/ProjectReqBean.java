@@ -12,6 +12,5 @@ public class ProjectReqBean {
     private String name;
     private String description;
     private String url;
-    private String createdDate;
     private Boolean isActive = true;
 }

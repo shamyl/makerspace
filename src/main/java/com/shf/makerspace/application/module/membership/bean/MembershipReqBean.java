@@ -12,7 +12,6 @@ public class MembershipReqBean {
     private String name;
     private String description;
     private String timePeriod;
-    private String createdDate;
     private String startDateTime;
     private String endDateTime;
     private Boolean isActive = true;
