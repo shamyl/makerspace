@@ -76,4 +76,22 @@ public class CourseController {
     public ResponseEntity<List<CourseAssignmentView>> getCoursesByUserId(@RequestParam(value = "userId") Long userId) {
         return ResponseEntity.ok(courseService.getCoursesByUserId(userId));
     }
+
+    @Operation(summary = "Get Course Status", description = "Get Course Status")
+    @GetMapping(value = URIs.GET_COURSE_STATUS, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<String>> getCourseStatus() {
+        return ResponseEntity.ok(courseService.getCourseStatus());
+    }
+
+    @Operation(summary = "Get Course Assignment Status", description = "Get Course Assignment Status")
+    @GetMapping(value = URIs.GET_COURSE_ASSIGNMENT_STATUS, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<String>> getCourseAssignmentStatus() {
+        return ResponseEntity.ok(courseService.getCourseAssignmentStatus());
+    }
+
+    @Operation(summary = "Get Time Period List", description = "Get Time Period List")
+    @GetMapping(value = URIs.GET_TIME_PERIOD_LIST, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<String>> getTimePeriodList() {
+        return ResponseEntity.ok(courseService.getTimePeriodList());
+    }
 }

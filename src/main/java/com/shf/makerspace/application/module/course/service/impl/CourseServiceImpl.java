@@ -1,5 +1,8 @@
 package com.shf.makerspace.application.module.course.service.impl;
 
+import com.shf.makerspace.Enum.CourseStatusEnum;
+import com.shf.makerspace.Enum.EnrolllCourseStatusEnum;
+import com.shf.makerspace.Enum.TimePeriodEnum;
 import com.shf.makerspace.application.module.common.CommonService;
 import com.shf.makerspace.application.module.common.RepoFactory;
 import com.shf.makerspace.application.module.course.bean.CourseAssignmentReqBean;
@@ -141,6 +144,42 @@ public class CourseServiceImpl implements CourseService {
             courseAssignmentViewList.add(courseAssignmentView);
         });
         return courseAssignmentViewList;
+    }
+
+    @Override
+    public List<String> getCourseStatus() {
+        List<String> courseStatus = new ArrayList<>();
+        courseStatus.add(CourseStatusEnum.AVAILABLE.getValue());
+        courseStatus.add(CourseStatusEnum.COMING_SOON.getValue());
+        return courseStatus;
+    }
+
+    @Override
+    public List<String> getCourseAssignmentStatus() {
+        List<String> courseAssignmentStatus = new ArrayList<>();
+        courseAssignmentStatus.add(EnrolllCourseStatusEnum.ONGOING.getValue());
+        courseAssignmentStatus.add(EnrolllCourseStatusEnum.COMPLETE.getValue());
+        return courseAssignmentStatus;
+    }
+
+    @Override
+    public List<String> getTimePeriodList() {
+        List<String> timePeriod = new ArrayList<>();
+        timePeriod.add(TimePeriodEnum.DAYS_15.getValue());
+        timePeriod.add(TimePeriodEnum.MONTH_1.getValue());
+        timePeriod.add(TimePeriodEnum.MONTH_2.getValue());
+        timePeriod.add(TimePeriodEnum.MONTH_3.getValue());
+        timePeriod.add(TimePeriodEnum.MONTH_4.getValue());
+        timePeriod.add(TimePeriodEnum.MONTH_5.getValue());
+        timePeriod.add(TimePeriodEnum.MONTH_6.getValue());
+        timePeriod.add(TimePeriodEnum.MONTH_7.getValue());
+        timePeriod.add(TimePeriodEnum.MONTH_8.getValue());
+        timePeriod.add(TimePeriodEnum.MONTH_9.getValue());
+        timePeriod.add(TimePeriodEnum.MONTH_10.getValue());
+        timePeriod.add(TimePeriodEnum.MONTH_11.getValue());
+        timePeriod.add(TimePeriodEnum.MONTH_12.getValue());
+        timePeriod.add(TimePeriodEnum.YEAR_1.getValue());
+        return timePeriod;
     }
 
     private void setOtherObjectCourseEnrollment(CourseAssignmentReqBean requestParam, CourseEnrollment courseEnrollment) {

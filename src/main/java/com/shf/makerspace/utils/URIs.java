@@ -21,4 +21,7 @@ public class URIs {
     public static final String TYPE = "/type";
     public static final String ASSIGNMENT = "/assignment";
     public static final String GET_USER_COURSES = "/getCoursesByUserId";
+    public static final String GET_COURSE_STATUS = "/getCourseStatus";
+    public static final String GET_COURSE_ASSIGNMENT_STATUS = "/getCourseAssignmentStatus";
+    public static final String GET_TIME_PERIOD_LIST = "/getTimePeriodList";
 }

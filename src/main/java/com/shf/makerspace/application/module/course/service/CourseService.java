@@ -19,4 +19,10 @@ public interface CourseService {
     CourseAssignmentView userCourseAssignment(CourseAssignmentReqBean requestParam);
 
     List<CourseAssignmentView> getCoursesByUserId(Long userId);
+
+    List<String> getCourseStatus();
+
+    List<String> getCourseAssignmentStatus();
+
+    List<String> getTimePeriodList();
 }
