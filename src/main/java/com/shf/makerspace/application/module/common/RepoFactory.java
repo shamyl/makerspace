@@ -2,10 +2,12 @@ package com.shf.makerspace.application.module.common;
 
 import com.shf.makerspace.models.CourseEnrollment;
 import com.shf.makerspace.models.Courses;
+import com.shf.makerspace.models.LabBooking;
 import com.shf.makerspace.models.Labs;
 import com.shf.makerspace.models.Membership;
 import com.shf.makerspace.models.Project;
 import com.shf.makerspace.models.User;
+import com.shf.makerspace.models.UserMembership;
 import com.shf.makerspace.models.UserType;
 import com.shf.makerspace.repository.CourseEnrollmentRepository;
 import com.shf.makerspace.repository.CourseRepository;
@@ -192,4 +194,38 @@ public class RepoFactory {
         return courseEnrollmentRepository.findCourseEnrollmentByUser_Id(userId);
     }
 
+    //TODO USER MEMBERSHIP
+    public UserMembership findUserMembershipById(Long id) {
+        return userMembershipRepository.findUserMembershipById(id);
+    }
+
+    public UserMembership findUserMembershipByUserIdAndCourseIdAndDate(Long userId, Long courseId, LocalDateTime dateFrom, LocalDateTime dateTo) {
+        return userMembershipRepository.findUserMembershipByUserIdAndCourseIdAndDate(userId, courseId, dateFrom, dateTo);
+    }
+
+    public UserMembership saveUserMembership(UserMembership courseEnrollment) {
+        return userMembershipRepository.saveAndFlush(courseEnrollment);
+    }
+
+    public List<UserMembership> findUserMembershipByUserId(Long userId) {
+        return userMembershipRepository.findUserMembershipByUser_Id(userId);
+    }
+
+
+    //TODO USER LABS
+    public LabBooking findLabBookingsById(Long id) {
+        return labBookingRepository.findLabBookingsById(id);
+    }
+
+    public LabBooking findLabBookingByUserIdAndCourseIdAndDate(Long userId, Long courseId, LocalDateTime dateFrom, LocalDateTime dateTo) {
+        return labBookingRepository.findLabBookingByUserIdAndCourseIdAndDate(userId, courseId, dateFrom, dateTo);
+    }
+
+    public LabBooking saveLabBooking(LabBooking labBooking) {
+        return labBookingRepository.saveAndFlush(labBooking);
+    }
+
+    public List<LabBooking> findLabBookingsByUserId(Long userId) {
+        return labBookingRepository.findLabBookingsByUser_Id(userId);
+    }
 }

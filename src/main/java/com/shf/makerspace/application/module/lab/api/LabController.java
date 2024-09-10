@@ -2,6 +2,8 @@ package com.shf.makerspace.application.module.lab.api;
 
 import com.shf.makerspace.application.module.lab.bean.LabReqBean;
 import com.shf.makerspace.application.module.lab.bean.LabView;
+import com.shf.makerspace.application.module.lab.bean.UserLabReqBean;
+import com.shf.makerspace.application.module.lab.bean.UserLabView;
 import com.shf.makerspace.application.module.lab.service.LabService;
 import com.shf.makerspace.utils.URIs;
 import io.swagger.v3.oas.annotations.Operation;
@@ -61,5 +63,17 @@ public class LabController {
     @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<LabView> getLabById(@PathVariable("id") Long id) {
         return ResponseEntity.ok(labService.getLabById(id));
+    }
+
+    @Operation(summary = "User Lab Booking", description = "User Lab Booking")
+    @PostMapping(value = URIs.USER_LAB_BOOKING, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<UserLabView> userLabBooking(@RequestBody UserLabReqBean requestParam) {
+        return ResponseEntity.ok(labService.userLabBooking(requestParam));
+    }
+
+    @Operation(summary = "Get User Labs", description = "Get User Labs")
+    @GetMapping(value = URIs.GET_USER_LABS, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<UserLabView>> getLabsByUserId(@RequestParam(value = "userId") Long userId) {
+        return ResponseEntity.ok(labService.getLabsByUserId(userId));
     }
 }

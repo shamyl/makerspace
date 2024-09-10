@@ -2,6 +2,8 @@ package com.shf.makerspace.application.module.membership.api;
 
 import com.shf.makerspace.application.module.membership.bean.MembershipReqBean;
 import com.shf.makerspace.application.module.membership.bean.MembershipView;
+import com.shf.makerspace.application.module.membership.bean.UserMembershipReqBean;
+import com.shf.makerspace.application.module.membership.bean.UserMembershipView;
 import com.shf.makerspace.application.module.membership.service.MembershipService;
 import com.shf.makerspace.utils.URIs;
 import io.swagger.v3.oas.annotations.Operation;
@@ -61,5 +63,17 @@ public class MembershipController {
     @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<MembershipView> getMembershipById(@PathVariable("id") Long id) {
         return ResponseEntity.ok(membershipService.getMembershipById(id));
+    }
+
+    @Operation(summary = "User Take Membership", description = "User Take Membership")
+    @PostMapping(value = URIs.USER_TAKE_MEMBERSHIP, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<UserMembershipView> userTakeMembership(@RequestBody UserMembershipReqBean requestParam) {
+        return ResponseEntity.ok(membershipService.userTakeMembership(requestParam));
+    }
+
+    @Operation(summary = "Get User Membership", description = "Get User Membership")
+    @GetMapping(value = URIs.GET_USER_MEMBERSHIP, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<UserMembershipView>> getMembershipByUserId(@RequestParam(value = "userId") Long userId) {
+        return ResponseEntity.ok(membershipService.getMembershipByUserId(userId));
     }
 }

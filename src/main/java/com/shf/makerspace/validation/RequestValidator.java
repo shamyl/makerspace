@@ -3,7 +3,9 @@ package com.shf.makerspace.validation;
 import com.shf.makerspace.application.module.course.bean.CourseAssignmentReqBean;
 import com.shf.makerspace.application.module.course.bean.CourseReqBean;
 import com.shf.makerspace.application.module.lab.bean.LabReqBean;
+import com.shf.makerspace.application.module.lab.bean.UserLabReqBean;
 import com.shf.makerspace.application.module.membership.bean.MembershipReqBean;
+import com.shf.makerspace.application.module.membership.bean.UserMembershipReqBean;
 import com.shf.makerspace.application.module.project.bean.ProjectReqBean;
 import com.shf.makerspace.application.module.user.bean.UserRequestBean;
 import com.shf.makerspace.exception.GenericException;
@@ -105,6 +107,58 @@ public interface RequestValidator<T> extends Function<T, RequestValidator.Valida
                 throw new GenericException("Please provide valid input for status!!!", HttpStatus.BAD_REQUEST);
             }
             if (isNullOrEmpty(requestParam.getCourseVenue())) {
+                throw new GenericException("Please provide valid input for venue!!!", HttpStatus.BAD_REQUEST);
+            }
+            if (isNullOrEmpty(requestParam.getStartDateTime())) {
+                throw new GenericException("Please provide valid input start date time!!!", HttpStatus.BAD_REQUEST);
+            }
+            if (isNullOrEmpty(requestParam.getEndDateTime())) {
+                throw new GenericException("Please provide valid input end date time!!!", HttpStatus.BAD_REQUEST);
+            }
+
+            return new ValidationResult(HttpStatus.OK.value(), "Success");
+        };
+    }
+
+    static RequestValidator validateUserTakeMembership() {
+        return t -> {
+            UserMembershipReqBean requestParam = (UserMembershipReqBean) t;
+            if (isNullOrEmpty(requestParam.getUserId()) || requestParam.getUserId() <= 0) {
+                throw new GenericException("Please provide valid input for user id!!!", HttpStatus.BAD_REQUEST);
+            }
+            if (isNullOrEmpty(requestParam.getMembershipId()) || requestParam.getMembershipId() <= 0) {
+                throw new GenericException("Please provide valid input for course id!!!", HttpStatus.BAD_REQUEST);
+            }
+            if (isNullOrEmpty(requestParam.getTimePeriod())) {
+                throw new GenericException("Please provide valid input for time period!!!", HttpStatus.BAD_REQUEST);
+            }
+            if (isNullOrEmpty(requestParam.getStartDateTime())) {
+                throw new GenericException("Please provide valid input start date time!!!", HttpStatus.BAD_REQUEST);
+            }
+            if (isNullOrEmpty(requestParam.getEndDateTime())) {
+                throw new GenericException("Please provide valid input end date time!!!", HttpStatus.BAD_REQUEST);
+            }
+
+            return new ValidationResult(HttpStatus.OK.value(), "Success");
+        };
+    }
+
+    static RequestValidator validateLabBooking() {
+        return t -> {
+            UserLabReqBean requestParam = (UserLabReqBean) t;
+            if (isNullOrEmpty(requestParam.getUserId()) || requestParam.getUserId() <= 0) {
+                throw new GenericException("Please provide valid input for user id!!!", HttpStatus.BAD_REQUEST);
+            }
+            if (isNullOrEmpty(requestParam.getLabId()) || requestParam.getLabId() <= 0) {
+                throw new GenericException("Please provide valid input for course id!!!", HttpStatus.BAD_REQUEST);
+            }
+            if (isNullOrEmpty(requestParam.getTimePeriod())) {
+                throw new GenericException("Please provide valid input for time period!!!", HttpStatus.BAD_REQUEST);
+            }
+            if (isNullOrEmpty(requestParam.getStatus())) {
+                throw new GenericException("Please provide valid input for status!!!", HttpStatus.BAD_REQUEST);
+            }
+            if (isNullOrEmpty(requestParam.getVenue())) {
                 throw new GenericException("Please provide valid input for venue!!!", HttpStatus.BAD_REQUEST);
             }
             if (isNullOrEmpty(requestParam.getStartDateTime())) {

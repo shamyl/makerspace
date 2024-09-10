@@ -24,4 +24,8 @@ public class URIs {
     public static final String GET_COURSE_STATUS = "/getCourseStatus";
     public static final String GET_COURSE_ASSIGNMENT_STATUS = "/getCourseAssignmentStatus";
     public static final String GET_TIME_PERIOD_LIST = "/getTimePeriodList";
+    public static final String USER_TAKE_MEMBERSHIP = "/userTakeMembership";
+    public static final String GET_USER_MEMBERSHIP = "/getMembershipByUserId";
+    public static final String USER_LAB_BOOKING = "/userLabBooking";
+    public static final String GET_USER_LABS = "/getLabsByUserId";
 }

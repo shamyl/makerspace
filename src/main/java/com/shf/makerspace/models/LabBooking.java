@@ -1,5 +1,6 @@
 package com.shf.makerspace.models;
 
+import com.shf.makerspace.application.module.lab.bean.UserLabReqBean;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -14,6 +15,8 @@ import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
+
+import static com.shf.makerspace.utils.StringUtils.isNullOrEmpty;
 
 @Data
 @AllArgsConstructor
@@ -50,4 +53,12 @@ public class LabBooking implements Serializable {
     @Column(name = "end_time")
     private LocalDateTime endTime;
 
+    public void initModel(UserLabReqBean requestParam) {
+        if (!isNullOrEmpty(requestParam.getId())) {
+            this.id = requestParam.getId();
+        }
+        this.timePeriod = requestParam.getTimePeriod();
+        this.venue = requestParam.getVenue();
+        this.status = requestParam.getStatus();
+    }
 }
