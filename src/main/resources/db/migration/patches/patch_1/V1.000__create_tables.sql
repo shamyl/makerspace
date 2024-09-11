@@ -190,3 +190,9 @@ CREATE TABLE `user_projects`
     CONSTRAINT `fk_user_projects_project_id` FOREIGN KEY (`project_id`) REFERENCES `projects` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 
+
+/*Admin User Creation*/
+INSERT INTO `makerspace`.`user` (`first_name`, `last_name`, `username`, `email`, `password`, `is_active`,
+                                 `user_type_id`, `created_date`)
+VALUES ('Admin', 'User', 'admin', 'admin', 'B3Q6ei8Vj+1LZ3pEiT1s4w==', '1', '1', '2024-09-11 10:58:16');
+
