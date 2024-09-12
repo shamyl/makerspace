@@ -150,9 +150,9 @@ public interface RequestValidator<T> extends Function<T, RequestValidator.Valida
                 throw new GenericException("Please provide valid input for user id!!!", HttpStatus.BAD_REQUEST);
             }
             if (isNullOrEmpty(requestParam.getLabId()) || requestParam.getLabId() <= 0) {
-                throw new GenericException("Please provide valid input for course id!!!", HttpStatus.BAD_REQUEST);
+                throw new GenericException("Please provide valid input for lab id!!!", HttpStatus.BAD_REQUEST);
             }
-            if (isNullOrEmpty(requestParam.getTimePeriod())) {
+            /*if (isNullOrEmpty(requestParam.getTimePeriod())) {
                 throw new GenericException("Please provide valid input for time period!!!", HttpStatus.BAD_REQUEST);
             }
             if (isNullOrEmpty(requestParam.getStatus())) {
@@ -160,7 +160,7 @@ public interface RequestValidator<T> extends Function<T, RequestValidator.Valida
             }
             if (isNullOrEmpty(requestParam.getVenue())) {
                 throw new GenericException("Please provide valid input for venue!!!", HttpStatus.BAD_REQUEST);
-            }
+            }*/
             if (isNullOrEmpty(requestParam.getStartDateTime())) {
                 throw new GenericException("Please provide valid input start date time!!!", HttpStatus.BAD_REQUEST);
             }
