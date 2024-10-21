@@ -12,17 +12,34 @@ import com.shf.makerspace.models.Membership;
 import com.shf.makerspace.models.Project;
 import com.shf.makerspace.models.User;
 import com.shf.makerspace.utils.DateUtil;
+import com.shf.makerspace.utils.FileUtil;
 import com.shf.makerspace.utils.MapperUtil;
 import com.shf.makerspace.utils.StringUtils;
+import com.shf.makerspace.utils.URIs;
+import com.shf.makerspace.utils.ZipUtility;
+import jakarta.servlet.http.HttpServletResponse;
+import lombok.RequiredArgsConstructor;
 import org.jasypt.util.text.BasicTextEncryptor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
+import org.springframework.util.FileCopyUtils;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.io.BufferedInputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.URLConnection;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import static com.shf.makerspace.utils.StringUtils.DATE_TIME_FORMAT;
 import static com.shf.makerspace.utils.StringUtils.isNullOrEmpty;
 
 @Component
+@RequiredArgsConstructor
 public class CommonService {
 
     @Value("${inner.enc.password}")
@@ -30,6 +47,8 @@ public class CommonService {
 
     @Value("${inner.admin.password}")
     private String adminPassword;
+
+    private final ZipUtility zipUtility;
 
     public String encrypt(String password) {
         String result;
@@ -164,6 +183,64 @@ public class CommonService {
     private void getProjectOtherObjects(ProjectView projectView, Project project) {
         if (!isNullOrEmpty(project.getCreatedDate())) {
             projectView.setCreatedDate(DateUtil.convertLocalDateTimeToString(project.getCreatedDate(), DATE_TIME_FORMAT));
+        }
+    }
+
+    public void createFile(MultipartFile file, String path) {
+        try {
+            FileUtil.dumpFile(file.getInputStream(), path, file.getOriginalFilename());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void downloadAllFile(List<String> files, String filePath, String zip, HttpServletResponse response) {
+        String zipPath = filePath + "/" + zip;
+
+        //makes complete path for reading files from directory.
+        List<File> logFiles = files.stream().map(File::new).collect(Collectors.toList());
+        try {
+            zipUtility.zip(logFiles, zipPath);
+            String fullPath = filePath + File.separator + zip;
+
+            File downloadFile = new File(fullPath);
+            String mimeType = URLConnection.guessContentTypeFromName(downloadFile.getName());
+            if (mimeType == null) {
+                System.out.println(URIs.MIME_TYPE_NOT_DETECTABLE);
+                mimeType = URIs.APPLICATION_OCTET_STREAM;
+            }
+
+            System.out.println(URIs.MIME_TYPE + mimeType);
+            response.setContentType(mimeType);
+            response.setHeader(URIs.CONTENT_DISPOSITION,
+                    "inline; filename=\"" + downloadFile.getName() + "\"");
+            response.setContentLength((int) downloadFile.length());
+            InputStream inputStream = new BufferedInputStream(new FileInputStream(downloadFile));
+            FileCopyUtils.copy(inputStream, response.getOutputStream());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void downloadFileById(String url, HttpServletResponse response) {
+
+        try {
+            File downloadFile = new File(url);
+            String mimeType = URLConnection.guessContentTypeFromName(downloadFile.getName());
+            if (mimeType == null) {
+                System.out.println(URIs.MIME_TYPE_NOT_DETECTABLE);
+                mimeType = URIs.APPLICATION_OCTET_STREAM;
+            }
+
+            System.out.println(URIs.MIME_TYPE + mimeType);
+            response.setContentType(mimeType);
+            response.setHeader(URIs.CONTENT_DISPOSITION,
+                    "attachment; filename=\"" + downloadFile.getName() + "\"");
+            response.setContentLength((int) downloadFile.length());
+            InputStream inputStream = new BufferedInputStream(new FileInputStream(downloadFile));
+            FileCopyUtils.copy(inputStream, response.getOutputStream());
+        } catch (Exception e) {
+            e.printStackTrace();
         }
 
     }

@@ -1,5 +1,6 @@
 package com.shf.makerspace.application.module.common;
 
+import com.shf.makerspace.models.AttachedDocuments;
 import com.shf.makerspace.models.CourseEnrollment;
 import com.shf.makerspace.models.Courses;
 import com.shf.makerspace.models.LabBooking;
@@ -9,6 +10,7 @@ import com.shf.makerspace.models.Project;
 import com.shf.makerspace.models.User;
 import com.shf.makerspace.models.UserMembership;
 import com.shf.makerspace.models.UserType;
+import com.shf.makerspace.repository.AttachedDocumentsRepository;
 import com.shf.makerspace.repository.CourseEnrollmentRepository;
 import com.shf.makerspace.repository.CourseRepository;
 import com.shf.makerspace.repository.LabBookingRepository;
@@ -38,6 +40,7 @@ public class RepoFactory {
     private final LabBookingRepository labBookingRepository;
     private final UserMembershipRepository userMembershipRepository;
     private final UserProjectRepository userProjectRepository;
+    private final AttachedDocumentsRepository attachedDocumentsRepository;
 
     // TODO USERS
     public User findUserById(Long id) {
@@ -227,5 +230,24 @@ public class RepoFactory {
 
     public List<LabBooking> findLabBookingsByUserId(Long userId) {
         return labBookingRepository.findLabBookingsByUser_Id(userId);
+    }
+
+    public AttachedDocuments findDocumentsById(Long id) {
+        return attachedDocumentsRepository.findAttachedDocumentsById(id);
+    }
+
+    public List<AttachedDocuments> saveAllDocuments(List<AttachedDocuments> list) {
+        return attachedDocumentsRepository.saveAll(list);
+    }
+    public List<AttachedDocuments> findAllDocumentsByModuleIdAndType(List<Long> moduleIds, String moduleType) {
+        return attachedDocumentsRepository.findAttachedDocumentsByModuleIdAndModuleType(moduleIds, moduleType);
+    }
+
+    public List<AttachedDocuments> findAllDocumentsByModuleIdAndTypeAndIsAfter(Long moduleId, String moduleType) {
+        return attachedDocumentsRepository.findAttachedDocumentsByModuleIdAndModuleType(moduleId, moduleType);
+    }
+
+    public List<AttachedDocuments> findAllDocumentsByModuleType(String moduleType) {
+        return attachedDocumentsRepository.findAllDocumentsByModuleType(moduleType);
     }
 }

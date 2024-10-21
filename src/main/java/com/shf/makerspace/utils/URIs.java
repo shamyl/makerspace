@@ -5,12 +5,19 @@ public class URIs {
     private URIs() {
     }
 
+    public static final String MIME_TYPE_NOT_DETECTABLE = "mimetype is not detectable, will take default";
+    public static final String APPLICATION_OCTET_STREAM = "application/octet-stream";
+    public static final String MIME_TYPE = "mimetype : ";
+    public static final String CONTENT_DISPOSITION = "Content-Disposition";
+
+
     public static final String BASE = "/makerspace";
     public static final String USERS = "/user";
     public static final String COURSES = "/course";
     public static final String LABS = "/lab";
     public static final String PROJECTS = "/project";
     public static final String MEMBERSHIP = "/membership";
+    public static final String DOCUMENTS = "/documents";
     // generic Url
     public static final String SAVE = "/save";
     public static final String UPDATE = "/update";
@@ -28,4 +35,8 @@ public class URIs {
     public static final String GET_USER_MEMBERSHIP = "/getMembershipByUserId";
     public static final String USER_LAB_BOOKING = "/userLabBooking";
     public static final String GET_USER_LABS = "/getLabsByUserId";
+    public static final String BY_MODULE_ID = "by-module-id";
+    public static final String BY_MODULE_IDS = "/by-module-ids";
+    public static final String DOWNLOAD = "/documents-download";
+    public static final String DOWNLOAD_ALL = "/download-all-docments";
 }
