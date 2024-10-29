@@ -1,8 +1,7 @@
+FROM openjdk:17-jdk-slim
 COPY src /usr/src/app/src
 COPY pom.xml /usr/src/app
-RUN mvn -f /usr/src/app/pom.xml clean install -Dmaven.test.skip=true
-
-FROM openjdk:17-jdk-slim
+RUN mvn -f pom.xml clean install -Dmaven.test.skip=true
 
 RUN apt-get update && apt-get upgrade -y
 
