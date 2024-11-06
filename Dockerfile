@@ -1,28 +1,36 @@
-# Stage 1: Build the application using Maven with JDK 17
+# Use Maven with Eclipse Temurin JDK 17 as the base image
 FROM maven:3.8.7-eclipse-temurin-17 AS build
+
+# Set JAVA_HOME environment variable for Java 17
+ENV JAVA_HOME=/usr/lib/jvm/java-17-openjdk
+ENV PATH=$JAVA_HOME/bin:$PATH
 
 # Set the working directory
 WORKDIR /app
 
-# Copy pom.xml and download dependencies
+# Copy the pom.xml file to the working directory
 COPY pom.xml ./
+
+# Run Maven to fetch dependencies and cache them
 RUN mvn dependency:go-offline
 
-# Copy the entire project and build it
-COPY . .
-RUN mvn clean install -Dmaven.test.skip=true
+# Copy the entire source code into the container
+COPY src ./src
 
-# Stage 2: Run the application using JDK 17
-FROM eclipse-temurin:17-jdk-jammy
+# Build the application
+RUN mvn clean package -DskipTests
 
-# Set working directory
+# Use a smaller image for running the application
+FROM openjdk:17-jdk-slim
+
+# Set the working directory for the runtime container
 WORKDIR /app
 
-# Copy the jar file from the build stage
-COPY --from=build /app/target/Makerspace-0.0.1-SNAPSHOT.jar /app/app.jar
+# Copy the built application JAR file from the build stage
+COPY --from=build /app/target/makerspace-backend.jar /app/makerspace-backend.jar
 
-# Expose the port the application runs on
+# Expose the backend application's port (adjust if necessary)
 EXPOSE 7100
 
-# Run the application
-CMD ["java", "-jar", "/app/app.jar"]
+# Run the backend application
+CMD ["java", "-jar", "makerspace-backend.jar"]
