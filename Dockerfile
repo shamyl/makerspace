@@ -1,13 +1,6 @@
 # Use Maven with Eclipse Temurin JDK 17 as the base image
 FROM maven:3.8.7-eclipse-temurin-17 AS build
 
-# Set JAVA_HOME and PATH environment variables
-ENV JAVA_HOME=/usr/lib/jvm/java-17-openjdk
-ENV PATH=$JAVA_HOME/bin:$PATH
-
-# Verify Java installation (commented out to avoid memory issues)
-# RUN java -version
-
 # Set the working directory for the application
 WORKDIR /app
 
