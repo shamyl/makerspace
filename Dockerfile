@@ -1,32 +1,30 @@
-# Use Maven with Eclipse Temurin JDK 17 as the base image
+# Use Maven with Java 17 from Eclipse Temurin
 FROM maven:3.8.7-eclipse-temurin-17 AS build
 
-# Set the working directory for the application
+# Set JAVA_HOME explicitly in the Dockerfile
+ENV JAVA_HOME=/usr/lib/jvm/java-17-openjdk
+ENV PATH=$JAVA_HOME/bin:$PATH
+
+# Verify Java version (this step will help ensure JAVA_HOME is set correctly)
+RUN java -version
+
+# Create and set the working directory
 WORKDIR /app
 
-# Copy the pom.xml file into the container
+# Copy the pom.xml to the working directory
 COPY pom.xml ./
 
-# Run Maven to fetch dependencies
+# Download project dependencies in offline mode
 RUN mvn dependency:go-offline
 
-# Copy the source code into the container
-COPY src ./src
+# Copy the remaining project files into the container
+COPY . .
 
-# Build the application (without running tests)
-RUN mvn clean package -DskipTests
+# Build the project (for example, a jar file)
+RUN mvn clean install -DskipTests
 
-# Use a smaller runtime image for the final application
-FROM openjdk:17-jdk-slim
-
-# Set the working directory for the final image
-WORKDIR /app
-
-# Copy the built JAR file from the build stage
-COPY --from=build /app/target/makerspace-backend.jar /app/makerspace-backend.jar
-
-# Expose the application port
+# Expose the port your application will use
 EXPOSE 7100
 
-# Command to run the backend application
-CMD ["java", "-jar", "makerspace-backend.jar"]
+# Command to run the backend server (change this according to your setup)
+CMD ["java", "-jar", "target/your-backend-app.jar"]
