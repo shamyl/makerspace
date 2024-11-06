@@ -1,36 +1,39 @@
 # Use Maven with Eclipse Temurin JDK 17 as the base image
 FROM maven:3.8.7-eclipse-temurin-17 AS build
 
-# Set JAVA_HOME environment variable for Java 17
+# Set JAVA_HOME and PATH environment variables
 ENV JAVA_HOME=/usr/lib/jvm/java-17-openjdk
 ENV PATH=$JAVA_HOME/bin:$PATH
 
-# Set the working directory
+# Verify Java installation (optional but useful for debugging)
+RUN java -version
+
+# Set the working directory for the application
 WORKDIR /app
 
-# Copy the pom.xml file to the working directory
+# Copy the pom.xml file into the container
 COPY pom.xml ./
 
-# Run Maven to fetch dependencies and cache them
+# Run Maven to fetch dependencies
 RUN mvn dependency:go-offline
 
-# Copy the entire source code into the container
+# Copy the source code into the container
 COPY src ./src
 
-# Build the application
+# Build the application (without running tests)
 RUN mvn clean package -DskipTests
 
-# Use a smaller image for running the application
+# Use a smaller runtime image for the final application
 FROM openjdk:17-jdk-slim
 
-# Set the working directory for the runtime container
+# Set the working directory for the final image
 WORKDIR /app
 
-# Copy the built application JAR file from the build stage
+# Copy the built JAR file from the build stage
 COPY --from=build /app/target/makerspace-backend.jar /app/makerspace-backend.jar
 
-# Expose the backend application's port (adjust if necessary)
+# Expose the application port
 EXPOSE 7100
 
-# Run the backend application
+# Command to run the backend application
 CMD ["java", "-jar", "makerspace-backend.jar"]
