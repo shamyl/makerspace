@@ -1,10 +1,6 @@
 # Use Maven with Java 17 from Eclipse Temurin
 FROM maven:3.8.7-eclipse-temurin-17 AS build
 
-# Set JAVA_HOME explicitly in the Dockerfile
-ENV JAVA_HOME=/usr/lib/jvm/java-17-openjdk
-ENV PATH=$JAVA_HOME/bin:$PATH
-
 # Verify Java version (this step will help ensure JAVA_HOME is set correctly)
 RUN java -version
 
