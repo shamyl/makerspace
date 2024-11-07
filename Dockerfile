@@ -23,4 +23,4 @@ RUN mvn clean install -DskipTests
 EXPOSE 7100
 
 # Command to run the backend server (change this according to your setup)
-CMD ["java", "-jar", "target/your-backend-app.jar"]
+CMD ["java", "-jar", "target/Makerspace-0.0.1-SNAPSHOT.jar"]
