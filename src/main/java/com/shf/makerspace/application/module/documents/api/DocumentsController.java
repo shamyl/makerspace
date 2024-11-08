@@ -23,8 +23,8 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
-// @CrossOrigin(origins = "*")
-@CrossOrigin
+@CrossOrigin(origins = "http://localhost:4200/")
+// @CrossOrigin
 @RestController
 @RequestMapping(value = URIs.BASE + URIs.DOCUMENTS)
 public class DocumentsController {

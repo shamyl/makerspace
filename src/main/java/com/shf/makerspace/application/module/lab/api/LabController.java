@@ -23,8 +23,8 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-// @CrossOrigin(origins = "*")
-@CrossOrigin
+@CrossOrigin(origins = "http://localhost:4200/")
+// @CrossOrigin
 @RequestMapping(value = URIs.BASE + URIs.LABS)
 public class LabController {
 
