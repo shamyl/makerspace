@@ -17,6 +17,7 @@ node {
     stage('Run Backend Container') {
         sh label: 'run', script: 'docker run -d --name makerspace-backend -p 7100:7100 makerspace-backend:latest'
     }
+    
 
     stage('Remove Extra Images') {
         sh label: 'remove', script: 'docker image prune -f -a'
