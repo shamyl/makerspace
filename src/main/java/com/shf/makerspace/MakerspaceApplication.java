@@ -34,7 +34,7 @@ public class MakerspaceApplication {
     private static void logApplicationStartup(Environment env) {
         String protocol = "http";
         if (env.getProperty("server.ssl.key-store") != null) {
-            protocol = "https";
+            protocol = "http";
         }
         String serverPort = env.getProperty("server.port");
         String contextPath = env.getProperty("server.servlet.context-path");
