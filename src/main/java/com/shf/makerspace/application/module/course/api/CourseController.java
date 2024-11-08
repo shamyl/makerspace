@@ -24,6 +24,7 @@ import java.util.List;
 
 @RestController
 // @CrossOrigin(origins = "*")
+@CrossOrigin
 @RequestMapping(value = URIs.BASE + URIs.COURSES)
 public class CourseController {
 

@@ -24,6 +24,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.util.List;
 
 // @CrossOrigin(origins = "*")
+@CrossOrigin
 @RestController
 @RequestMapping(value = URIs.BASE + URIs.DOCUMENTS)
 public class DocumentsController {
