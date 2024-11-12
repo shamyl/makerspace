@@ -23,7 +23,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-@CrossOrigin(origins = "http://35.232.175.135")
+@CrossOrigin(origins = "*")
 // @CrossOrigin
 @RequestMapping(value = URIs.BASE + URIs.COURSES)
 public class CourseController {
