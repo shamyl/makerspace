@@ -24,4 +24,4 @@ EXPOSE 7100
 
 # Command to run the backend server (change this according to your setup)
 # CMD ["java", "-jar", "target/Makerspace-0.0.1-SNAPSHOT.jar"]
-CMD ["java", "-jar", "/app/Makerspace.jar", "--server.address=0.0.0.0", "--server.port=7100"]
+CMD ["java", "-jar", "target/Makerspace-0.0.1-SNAPSHOT.jar", "--server.address=0.0.0.0", "--server.port=7100"]
