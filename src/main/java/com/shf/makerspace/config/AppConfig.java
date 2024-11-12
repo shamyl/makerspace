@@ -26,7 +26,7 @@ public class AppConfig {
             @Override
             public void addCorsMappings(CorsRegistry registry) {
                 registry.addMapping("/**")
-                        .allowedOrigins("http://35.232.175.135") // Replace with your frontend domain
+                        .allowedOrigins("http://0.0.0.0:4200") // Replace with your frontend domain
                         .allowedMethods("GET", "POST", "PUT", "DELETE");
             }
         };
